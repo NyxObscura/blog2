@@ -13,7 +13,7 @@
 </section>
 
 {{- /* Latest Posts */ -}}
-<div class="container posts-section">
+<div class="container--wide posts-section">
 
   {{- $posts := where .Site.RegularPages "Section" "blog" -}}
   {{- $featured := first 1 $posts -}}
