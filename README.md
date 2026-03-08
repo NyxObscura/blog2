@@ -6,7 +6,7 @@ A production-ready static blog built with [Hugo](https://gohugo.io/), designed f
 
 ---
 
-## Project Structure
+## Project Structure -
 
 ```
 obscuraworks-blog/
