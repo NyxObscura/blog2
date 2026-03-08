@@ -95,6 +95,12 @@
 /* ---- Reset & Base ----------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  /* BUG FIX: Mencegah layar geser/membesar di HP */
+  overflow-x: hidden;
+  width: 100%;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -113,6 +119,12 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* BUG FIX: Memaksa teks yang sangat panjang turun ke baris baru */
+p, h1, h2, h3, h4, a, li, .post-title, .post-excerpt {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* ---- Typography ------------------------------------------- */
@@ -542,40 +554,13 @@ pre code {
   margin: 0;
 }
 
+/* FIX: Card layout and click area */
 .post-card {
-  position: relative; /* TAMBAHKAN INI: Agar link tidak keluar dari batas card */
+  position: relative;
   border-bottom: 1px solid var(--border);
   padding: 1.75rem 0;
   transition: background var(--transition);
 }
-
-/* TAMBAHKAN BLOK KODE INI: Untuk membuat hit-box link menutupi seluruh card */
-.post-title a::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 1;
-}
-
-.post-meta {
-  position: relative; /* TAMBAHKAN INI */
-  z-index: 2;         /* TAMBAHKAN INI */
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.post-tags {
-  position: relative; /* TAMBAHKAN INI */
-  z-index: 2;         /* TAMBAHKAN INI: Agar tag tetap bisa diklik (berada di atas link card) */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
-}
-
 
 .post-card:first-child { border-top: none; }
 .post-card:last-child { border-bottom: none; }
@@ -587,6 +572,29 @@ pre code {
   align-items: start;
 }
 
+/* BUG FIX: Mencegah Grid Layout jebol ke samping */
+.post-card-inner > *,
+.article-layout > * {
+  min-width: 0;
+}
+
+/* FIX: Make entire card clickable via title link overlay */
+.post-title a::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+
+.post-meta {
+  position: relative;
+  z-index: 2; /* Keep above card link */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
 
 .post-category {
   font-family: var(--font-mono);
@@ -611,6 +619,7 @@ pre code {
 .post-readtime::before { content: "· "; }
 
 .post-title {
+  position: relative;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -627,6 +636,7 @@ pre code {
 .post-title a:hover { color: var(--accent); }
 
 .post-excerpt {
+  position: relative;
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.65;
@@ -637,6 +647,14 @@ pre code {
   overflow: hidden;
 }
 
+.post-tags {
+  position: relative;
+  z-index: 2; /* Keep clickable tags above card link */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
 
 .tag {
   font-family: var(--font-mono);
@@ -656,6 +674,8 @@ pre code {
 }
 
 .post-arrow {
+  position: relative;
+  z-index: 2;
   color: var(--text-muted);
   font-size: 1.1rem;
   margin-top: 0.25rem;
@@ -790,11 +810,15 @@ pre code {
   margin: 1.5rem 0;
 }
 
+/* BUG FIX: Mencegah tabel merusak layar mobile */
 .article-body table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.9rem;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .article-body th,
@@ -810,6 +834,12 @@ pre code {
   color: var(--text-primary);
   font-size: 0.825rem;
   letter-spacing: 0.03em;
+}
+
+/* BUG FIX: Mencegah code block merusak layar mobile */
+.article-body pre {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 /* ---- Table of Contents ------------------------------------ */
@@ -1190,3 +1220,29 @@ pre code {
 }
 
 .rss-link:hover { color: var(--orange); opacity: 0.8; }
+
+/* =========================================
+   BUG FIXES: Responsive Mobile Layout Tweaks
+   ========================================= */
+@media (max-width: 768px) {
+  /* Paksa batas jarak kiri-kanan */
+  .container, 
+  .container--wide, 
+  .article-header {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Perkecil padding di dalam card 'Featured' agar teks lebih lega */
+  .post-card--featured {
+    padding: 1.25rem;
+  }
+
+  /* Matikan kolom panah di mobile agar teks judul tidak tergencet/mepet */
+  .post-card-inner {
+    grid-template-columns: 1fr;
+  }
+  .post-arrow {
+    display: none;
+  }
+}

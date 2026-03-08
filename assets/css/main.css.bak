@@ -543,10 +543,39 @@ pre code {
 }
 
 .post-card {
+  position: relative; /* TAMBAHKAN INI: Agar link tidak keluar dari batas card */
   border-bottom: 1px solid var(--border);
   padding: 1.75rem 0;
   transition: background var(--transition);
 }
+
+/* TAMBAHKAN BLOK KODE INI: Untuk membuat hit-box link menutupi seluruh card */
+.post-title a::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+
+.post-meta {
+  position: relative; /* TAMBAHKAN INI */
+  z-index: 2;         /* TAMBAHKAN INI */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.post-tags {
+  position: relative; /* TAMBAHKAN INI */
+  z-index: 2;         /* TAMBAHKAN INI: Agar tag tetap bisa diklik (berada di atas link card) */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
 
 .post-card:first-child { border-top: none; }
 .post-card:last-child { border-bottom: none; }
@@ -558,13 +587,6 @@ pre code {
   align-items: start;
 }
 
-.post-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
-  flex-wrap: wrap;
-}
 
 .post-category {
   font-family: var(--font-mono);
@@ -615,12 +637,6 @@ pre code {
   overflow: hidden;
 }
 
-.post-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
-}
 
 .tag {
   font-family: var(--font-mono);
