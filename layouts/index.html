@@ -1,0 +1,75 @@
+{{ define "main" }}
+
+{{- /* Hero */ -}}
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Engineering Blog
+    </div>
+    <h1>{{ .Site.Title }}</h1>
+    <p class="hero-sub">{{ .Site.Params.tagline }}</p>
+  </div>
+</section>
+
+{{- /* Latest Posts */ -}}
+<div class="container--wide posts-section">
+
+  {{- $posts := where .Site.RegularPages "Section" "blog" -}}
+  {{- $featured := first 1 $posts -}}
+  {{- $rest := after 1 (first 8 $posts) -}}
+
+  {{- /* Featured post */ -}}
+  {{- range $featured }}
+  <article class="post-card post-card--featured">
+    <div class="post-meta" style="margin-bottom:0.75rem;">
+      <span class="hero-badge-dot" style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+      <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--green);letter-spacing:0.05em;text-transform:uppercase;">Latest</span>
+      {{- with .Params.categories }}
+        <span class="post-category">{{ index . 0 }}</span>
+      {{- end }}
+      <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+      <span class="post-readtime">{{ .ReadingTime }} min read</span>
+    </div>
+    <h2 class="post-title" style="font-size:1.65rem;margin-bottom:0.6rem;">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h2>
+    {{- with .Description }}
+      <p class="post-excerpt" style="-webkit-line-clamp:3;">{{ . }}</p>
+    {{- else }}
+      <p class="post-excerpt" style="-webkit-line-clamp:3;">{{ .Summary | plainify | truncate 200 }}</p>
+    {{- end }}
+    {{- with .Params.tags }}
+      <div class="post-tags" style="margin-top:1rem;">
+        {{- range first 4 . }}
+          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+        {{- end }}
+      </div>
+    {{- end }}
+  </article>
+  {{- end }}
+
+  {{- /* Section header */ -}}
+  <div class="section-header">
+    <span class="section-title">Recent Posts</span>
+    <a href="{{ "/blog/" | relURL }}" class="section-link">All posts →</a>
+  </div>
+
+  {{- /* Post list */ -}}
+  <ul class="post-list">
+    {{- range $rest }}
+      {{- partial "post-card.html" . -}}
+    {{- end }}
+  </ul>
+
+  {{- /* CTA Banner */ -}}
+  <div class="cta-banner">
+    <h2>Build with Obscuraworks</h2>
+    <p>Powerful APIs and automation infrastructure for modern development teams.</p>
+    <a href="{{ .Site.Params.platformURL }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+      {{ .Site.Params.platformCTA }} →
+    </a>
+  </div>
+
+</div>
+{{ end }}

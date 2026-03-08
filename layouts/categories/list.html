@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container--wide">
+    <h1>Categories</h1>
+    <p>Browse posts by topic.</p>
+  </div>
+</div>
+
+<div class="container--wide" style="padding-top:2rem;padding-bottom:3rem;">
+  <div class="categories-grid">
+    {{- range .Data.Terms.Alphabetical }}
+    <a href="{{ .Page.RelPermalink }}" class="category-card">
+      <div class="category-card-name">{{ .Page.Title }}</div>
+      <div class="category-card-count">{{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}</div>
+    </a>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

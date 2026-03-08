@@ -1,0 +1,113 @@
+baseURL = "https://blog.obscuraworks.org"
+languageCode = "en-us"
+title = "Obscuraworks Engineering Blog"
+description = "Insights on APIs, automation, and modern developer infrastructure."
+theme = ""
+paginate = 10
+enableRobotsTXT = true
+enableGitInfo = false
+copyright = "© 2025 Obscuraworks. All rights reserved."
+
+[author]
+  name = "Obscuraworks Engineering"
+  email = "engineering@obscuraworks.org"
+
+[params]
+  tagline = "Insights on APIs, automation, and modern developer infrastructure."
+  description = "The Obscuraworks Engineering Blog covers API infrastructure, developer tooling, automation platforms, and cloud architecture."
+  author = "Obscuraworks Engineering"
+  twitterSite = "@obscuraworks"
+  ogImage = "/images/og-default.png"
+  platformURL = "https://obscuraworks.org"
+  platformCTA = "Try Now"
+  github = "https://github.com/obscuraworks"
+  twitter = "https://twitter.com/obscuraworks"
+  readingTimeWords = 200
+  showTableOfContents = true
+  showCopyButton = true
+  showReadingTime = true
+  showAuthor = true
+  dateFormat = "January 2, 2006"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+[outputFormats.RSS]
+  mediaType = "application/rss+xml"
+  baseName = "feed"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = false
+    style = "github-dark"
+    tabWidth = 2
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+
+[[menus.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menus.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 2
+
+[[menus.main]]
+  name = "Categories"
+  url = "/categories/"
+  weight = 3
+
+[[menus.main]]
+  name = "Changelog"
+  url = "/changelog/"
+  weight = 4
+
+[[menus.main]]
+  name = "About"
+  url = "/about/"
+  weight = 5
+
+[[menus.main]]
+  name = "Try Now"
+  url = "https://obscuraworks.org"
+  weight = 6
+  [menus.main.params]
+    cta = true
+    external = true

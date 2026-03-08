@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container--wide">
+    <h1>Changelog</h1>
+    <p>Platform updates, releases, and API changes.</p>
+  </div>
+</div>
+
+<div class="container--wide changelog-list">
+  {{- range .Pages.ByDate.Reverse }}
+  <div class="changelog-entry">
+    <div class="changelog-date-col">
+      <div class="changelog-version">{{ .Params.version | default "Update" }}</div>
+      <div class="changelog-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+      {{- with .Params.type }}
+      <div>
+        <span class="changelog-badge changelog-badge--{{ . | lower }}">{{ . }}</span>
+      </div>
+      {{- end }}
+    </div>
+    <div class="changelog-content">
+      <h3><a href="{{ .RelPermalink }}" style="color:var(--text-primary);text-decoration:none;">{{ .Title }}</a></h3>
+      {{- with .Description }}<p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.75rem;">{{ . }}</p>{{- end }}
+      {{ .Content }}
+      <a href="{{ .RelPermalink }}" style="font-size:0.85rem;color:var(--accent);">Read more →</a>
+    </div>
+  </div>
+  {{- end }}
+</div>
+{{ end }}

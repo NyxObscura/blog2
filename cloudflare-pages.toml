@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration
+# Set these in the Cloudflare Pages dashboard:
+#   Build command:     hugo --minify
+#   Build output dir:  public
+#   Root directory:    /
+#
+# Environment variables to set in dashboard:
+#   HUGO_VERSION=0.147.0
+
+[build]
+command = "hugo --minify"
+
+[build.environment]
+HUGO_VERSION = "0.147.0"

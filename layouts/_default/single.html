@@ -1,0 +1,73 @@
+{{ define "main" }}
+
+{{- /* Article Header */ -}}
+<header class="article-header">
+  <div class="post-meta">
+    {{- with .Params.categories }}
+      <a href="{{ "/categories/" | relURL }}{{ index . 0 | urlize }}/" class="post-category">{{ index . 0 }}</a>
+    {{- end }}
+    <span class="post-date">{{ .Date.Format $.Site.Params.dateFormat }}</span>
+    {{- if $.Site.Params.showReadingTime }}
+      <span class="post-readtime">{{ .ReadingTime }} min read</span>
+    {{- end }}
+  </div>
+
+  <h1 class="article-title">{{ .Title }}</h1>
+
+  {{- with .Description }}
+    <p class="article-description">{{ . }}</p>
+  {{- end }}
+
+  {{- if $.Site.Params.showAuthor }}
+  <div class="article-byline">
+    <div class="author-avatar">{{ with .Params.author }}{{ substr . 0 2 | upper }}{{ else }}OW{{ end }}</div>
+    <span class="author-name">{{ with .Params.author }}{{ . }}{{ else }}{{ $.Site.Params.author }}{{ end }}</span>
+    <span class="byline-sep">·</span>
+    <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-mono" style="font-size:0.825rem;color:var(--text-muted);">
+      {{ .Date.Format "January 2, 2006" }}
+    </time>
+  </div>
+  {{- end }}
+</header>
+
+{{- /* Article Body + Sidebar */ -}}
+<div class="article-layout">
+
+  {{- /* Main content */ -}}
+  <article class="article-body">
+    {{ .Content }}
+
+    {{- /* Tags */ -}}
+    {{- with .Params.tags }}
+    <hr class="divider">
+    <div class="post-tags" style="margin-top:0.5rem;">
+      <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);margin-right:0.25rem;">tags:</span>
+      {{- range . }}
+        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    {{- /* CTA */ -}}
+    <div class="cta-banner" style="margin-top:3rem;">
+      <h2 style="font-size:1.25rem;">Explore the Platform</h2>
+      <p>See how Obscuraworks powers modern API workflows and automation.</p>
+      <a href="{{ $.Site.Params.platformURL }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+        Try Obscuraworks →
+      </a>
+    </div>
+  </article>
+
+  {{- /* Sidebar: Table of Contents */ -}}
+  {{- if and .Site.Params.showTableOfContents (gt (len .TableOfContents) 50) }}
+  <aside class="article-sidebar">
+    <div class="toc-card">
+      <p class="toc-title">On this page</p>
+      {{ .TableOfContents }}
+    </div>
+  </aside>
+  {{- end }}
+
+</div>
+
+{{ end }}

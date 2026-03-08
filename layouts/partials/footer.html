@@ -1,0 +1,56 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="{{ "/" | relURL }}" class="nav-logo" style="margin-bottom:0.75rem; display:inline-flex;">
+          <span class="nav-logo-mark">OW</span>
+          <span class="nav-logo-text" style="margin-left:0.6rem;">Obscuraworks</span>
+        </a>
+        <p>{{ .Site.Params.tagline }}</p>
+        <div style="margin-top:1rem;">
+          <a href="{{ "/blog/index.xml" | relURL }}" class="rss-link" title="Subscribe via RSS">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+            RSS Feed
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Blog</p>
+        <ul class="footer-links">
+          <li><a href="{{ "/blog/" | relURL }}">All Posts</a></li>
+          <li><a href="{{ "/categories/" | relURL }}">Categories</a></li>
+          <li><a href="{{ "/tags/" | relURL }}">Tags</a></li>
+          <li><a href="{{ "/changelog/" | relURL }}">Changelog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Platform</p>
+        <ul class="footer-links">
+          <li><a href="{{ .Site.Params.platformURL }}" target="_blank" rel="noopener noreferrer">Try Obscuraworks →</a></li>
+          <li><a href="{{ "/about/" | relURL }}">About</a></li>
+          {{- with .Site.Params.github }}
+          <li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          {{- end }}
+          {{- with .Site.Params.twitter }}
+          <li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+          {{- end }}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">{{ .Site.Copyright }}</span>
+      <div class="footer-socials">
+        {{- with .Site.Params.github }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">github</a>
+        {{- end }}
+        {{- with .Site.Params.twitter }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter">twitter</a>
+        {{- end }}
+        <a href="{{ "/blog/index.xml" | relURL }}" aria-label="RSS feed">rss</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,35 @@
+{{- $post := . -}}
+<li class="post-card">
+  <div class="post-card-inner">
+    <div>
+      <div class="post-meta">
+        {{- with $post.Params.categories -}}
+          <span class="post-category">{{ index . 0 }}</span>
+        {{- end }}
+        <span class="post-date">{{ $post.Date.Format "Jan 2, 2006" }}</span>
+        {{- if $.Site.Params.showReadingTime }}
+          <span class="post-readtime">{{ $post.ReadingTime }} min read</span>
+        {{- end }}
+      </div>
+
+      <h2 class="post-title">
+        <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+      </h2>
+
+      {{- with $post.Description }}
+        <p class="post-excerpt">{{ . }}</p>
+      {{- else }}
+        <p class="post-excerpt">{{ $post.Summary | plainify | truncate 180 }}</p>
+      {{- end }}
+
+      {{- with $post.Params.tags }}
+        <div class="post-tags">
+          {{- range first 4 . }}
+            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+          {{- end }}
+        </div>
+      {{- end }}
+    </div>
+    <span class="post-arrow" aria-hidden="true">→</span>
+  </div>
+</li>

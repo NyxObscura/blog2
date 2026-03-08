@@ -1,0 +1,34 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container--wide">
+    <h1>{{ .Title }}</h1>
+    {{- with .Description }}<p>{{ . }}</p>{{- end }}
+  </div>
+</div>
+
+<div class="container--wide posts-section">
+  <ul class="post-list">
+    {{- range .Paginator.Pages }}
+      {{- partial "post-card.html" . -}}
+    {{- end }}
+  </ul>
+
+  {{- /* Pagination */ -}}
+  {{- $paginator := .Paginator }}
+  {{- if gt $paginator.TotalPages 1 }}
+  <nav class="pagination" aria-label="Page navigation">
+    {{- if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" class="page-link" aria-label="Previous page">‹</a>
+    {{- end }}
+    {{- range $paginator.Pagers }}
+      <a href="{{ .URL }}" class="page-link {{ if eq . $paginator }}current{{ end }}" aria-label="Page {{ .PageNumber }}" {{ if eq . $paginator }}aria-current="page"{{ end }}>
+        {{ .PageNumber }}
+      </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" class="page-link" aria-label="Next page">›</a>
+    {{- end }}
+  </nav>
+  {{- end }}
+</div>
+{{ end }}

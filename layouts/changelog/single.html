@@ -1,0 +1,21 @@
+{{ define "main" }}
+<header class="article-header">
+  <div class="post-meta">
+    <span class="post-category">Changelog</span>
+    {{- with .Params.version }}<span class="post-date" style="font-family:var(--font-mono);color:var(--accent);">{{ . }}</span>{{- end }}
+    <span class="post-date">{{ .Date.Format $.Site.Params.dateFormat }}</span>
+    {{- with .Params.type }}
+    <span class="changelog-badge changelog-badge--{{ . | lower }}">{{ . }}</span>
+    {{- end }}
+  </div>
+  <h1 class="article-title">{{ .Title }}</h1>
+  {{- with .Description }}<p class="article-description">{{ . }}</p>{{- end }}
+</header>
+
+<div class="container" style="padding-top:2rem;padding-bottom:3rem;">
+  <div class="article-body">{{ .Content }}</div>
+  <div style="margin-top:2rem;">
+    <a href="{{ "/changelog/" | relURL }}" style="font-size:0.875rem;color:var(--accent);">← Back to Changelog</a>
+  </div>
+</div>
+{{ end }}
