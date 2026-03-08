@@ -2,11 +2,13 @@ baseURL = "https://blog.obscuraworks.org"
 languageCode = "en-us"
 title = "Obscuraworks Engineering Blog"
 description = "Insights on APIs, automation, and modern developer infrastructure."
-theme = ""
-paginate = 10
 enableRobotsTXT = true
 enableGitInfo = false
 copyright = "© 2025 Obscuraworks. All rights reserved."
+
+# Tambahkan ini sebagai pengganti paginate = 10
+[pagination]
+  pagerSize = 10
 
 [author]
   name = "Obscuraworks Engineering"
